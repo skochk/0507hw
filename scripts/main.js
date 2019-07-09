@@ -7,7 +7,7 @@ let team2 = [];
 
 
 //random hp for each karablek
-// количество танков должно быть равно или исправить for в checkOnAlive()
+// количество танков должно быть равно или исправить for в checkOnAlive(), везде
 for(let i = 0; i<3; i++){
     team1[i] = Math.random() * (8 - 5) + 5;
     team1[i] = Math.round(team1[i]);
@@ -65,29 +65,29 @@ function battle(){
             }
         }
 
-            //firing by team2
-            for(let i = 0; i < team1.length; i++){
-                if(team2[i] > 0){
-                    let fired = false;
-                            //choosing alive team1.karablix for shooting 
-                    while(fired == false){
-                        let randomIndex = Math.round(Math.random() * (team1.length - 0));
-                        if(team1[randomIndex] > 0){ 
-                            team1[randomIndex] = team1[randomIndex] - 1;
-                            console.log('team2 shooting ' + (i+1) + ' times on team1.karablek' + (randomIndex+1) + ", current hp:" + team1[randomIndex]);
-                            fired = true;
-                        }
-                    }     
-                    hps[i].innerText = team2[i];
-                }
-                else{
-                    hps[i].innerText = 'died';
-                }
+        //firing by team2
+        for(let i = 0; i < team1.length; i++){
+            if(team2[i] > 0){
+                let fired = false;
+                        //choosing alive team1.karablix for shooting 
+                while(fired == false){
+                    let randomIndex = Math.round(Math.random() * (team1.length - 0));
+                    if(team1[randomIndex] > 0){ 
+                        team1[randomIndex] = team1[randomIndex] - 1;
+                        console.log('team2 shooting ' + (i+1) + ' times on team1.karablek' + (randomIndex+1) + ", current hp:" + team1[randomIndex]);
+                        fired = true;
+                    }
+                }     
+                hps[i+3].innerText = team2[i]; // +3 потому что у тим2 - последние 3 в маcсиве hps
             }
+            else{
+                hps[i+3].innerText = 'died';
+            }
+        }
 
 
-            roundsCounter++;
-            document.querySelector('.round').innerText = roundsCounter;
+        roundsCounter++;
+        document.querySelector('.round').innerText = roundsCounter;
 
 }
 
