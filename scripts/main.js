@@ -14,6 +14,16 @@ for(let i = 0; i<3; i++){
 }
 
 
+//delete this, only for testing:
+// team1[0] = 1;
+// team2[0] = 1;
+// team1[1] = 1;
+// team2[1] = 1;
+// team1[2] = 0;
+// team2[2] = 0;
+
+
+
 let hps = document.querySelectorAll('.hp');
 
 setTimeout(() => {
@@ -41,20 +51,47 @@ for(let i = 0; i<team2.length; i++){
 }
 let roundsCounter = 0;
 function battle(){
-   
+    //checking for draw position
+    let draw1 = 0;
+    let draw2 = 0;
+    let draw1value = 0;
+    let draw2value = 0;
+    for(let i = 0; i<team1.length; i++){
+        if(team1[i] < 1){
+            draw1++;
+        }else{
+            draw1value = team1[i];
+        }
+        if(team2[i] < 1){
+            draw2++;
+        }
+        else {
+            draw2value = team2[i];
+        }
+    }
+    if(draw1 == 2 && draw2 == 2 && draw1value == draw2value){
+        return 0;
+    }
+
+
+
 
         //firing by team1
         for(let i = 0; i < team1.length; i++){
             if(team1[i] > 0){
                 let fired = false;
                         //choosing alive team2.karablix for shooting 
+
                         let threetimes = 0; //value for 3 times limit choosing enemy for each team - to avoid bugs
                 while(fired == false){
-                    let randomIndex = Math.round(Math.random() * (team2.length - 0));
+                    let randomIndex = Math.round(Math.random() * (2 - 0));
                     if(team2[randomIndex] > 0){ 
                         team2[randomIndex] = team2[randomIndex] - 1;
-                        console.log('team1 shooting ' + (i+1) + ' times on team2.karablek' + (randomIndex+1) + ", current hp:" + team2[randomIndex]);
+                        console.log('team1[' + i +'] shooting ' + (i+1) + ' times on team2[' + (randomIndex+1) + "], current hp:" + team2[randomIndex]);
                         fired = true;
+                        if(team2[randomIndex] < 1){
+                            hps[randomIndex+3].innerText = 'died';
+                        }
                     }
                     threetimes++;
                     if(threetimes ==3){
@@ -76,11 +113,14 @@ function battle(){
                         //choosing alive team1.karablix for shooting 
                         let threetimes = 0; //value for 3 times limit choosing enemy for each team - to avoid bugs
                 while(fired == false){
-                    let randomIndex = Math.round(Math.random() * (team1.length - 0));
+                    let randomIndex = Math.round(Math.random() * (2 - 0));
                     if(team1[randomIndex] > 0){ 
                         team1[randomIndex] = team1[randomIndex] - 1;
-                        console.log('team2 shooting ' + (i+1) + ' times on team1.karablek' + (randomIndex+1) + ", current hp:" + team1[randomIndex]);
+                        console.log('team2[' + i +'] shooting ' + (i+1) + ' times on team1[' + (randomIndex+1) + "], current hp:" + team1[randomIndex]);
                         fired = true;
+                        if(team1[randomIndex] < 1){
+                            hps[randomIndex].innerText = 'died';
+                        }
                     }
                     threetimes++;
                     if(threetimes ==3){
@@ -91,16 +131,6 @@ function battle(){
             }
             else{
                 hps[i+3].innerText = 'died';
-                
-                // let alive2checker = false;
-                // for(let alive2 = 0; alive2 < team1.length; alive2++){
-                //     if(team2[alive2] > 0){
-                //         alive2checker = true;
-                //     }
-                // }
-                // if(alive2checker = false){
-                //     break;
-                // }
             }
         }
 
@@ -136,20 +166,18 @@ function battle(){
 }
 
 
-let battleProcess = true;
 function getBattle(){
-
-// while(battleProcess == true){
    
-    
     let look = battle();
     if(look == 1){
         console.log('team2 won!');
-        battleProcess = false;
     }else if(look == 2){
         console.log('team1 won!');
-        battleProcess = false;
-    } else if(look == 3){
+    } else if(look == 0){
+        console.log('draw');
+        document.querySelector('.round').innerText = 'DRAW';
+    } 
+    else if(look == 3){
         setTimeout(() => {
             console.log('no one team died, will be next round: ');
             getBattle();
