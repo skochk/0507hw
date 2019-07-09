@@ -3,6 +3,13 @@ html, body {
   font-family: sans-serif;
 }
 
+.arrow {
+  margin-left: 200px;
+  margin-top: 200px;
+  position: absolute;
+  z-index: 333;
+}
+
 .starter, .rounds {
   width: 700px;
   height: 60px;
@@ -10,6 +17,18 @@ html, body {
   text-align: center;
   cursor: pointer;
   background-color: #51e654;
+}
+
+.back {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 700px;
+  font-size: 2em;
+  background-color: lightgray;
 }
 
 .rounds {

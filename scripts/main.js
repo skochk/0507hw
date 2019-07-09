@@ -1,3 +1,4 @@
+
 function main(){
 
 let team1 = [];
@@ -73,9 +74,6 @@ function battle(){
         return 0;
     }
 
-
-
-
         //firing by team1
         for(let i = 0; i < team1.length; i++){
             if(team1[i] > 0){
@@ -89,6 +87,7 @@ function battle(){
                         team2[randomIndex] = team2[randomIndex] - 1;
                         console.log('team1[' + i +'] shooting ' + (i+1) + ' times on team2[' + (randomIndex+1) + "], current hp:" + team2[randomIndex]);
                         fired = true;
+                      
                         if(team2[randomIndex] < 1){
                             hps[randomIndex+3].innerText = 'died';
                         }
